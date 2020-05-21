@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+  <meta charset="utf-8" />
+  <title>WebSocket Test Chat</title>
+  <script src="./ws-client.js"></script>
+  
+</head>
+
+<body>
+
+  <div id="chat">
+
+    <div id="app-bar">
+      <div class="app-bar-cell" id="connected-status">
+        <div id="connected-led"></div>
+      </div>
+
+      <div class="app-bar-cell">
+        <button id="connect-toggle-button" class="material-icons" type="button" onclick="init()" tabindex="0" role="button" aria-label="Toggle connection">chat</button>
+      </div>
+
+    </div>
+
+    <div id="log">
+      <div class="log-margin"></div>
+      <div id="log-content"></div>
+      <div class="log-margin"></div>
+    </div>
+
+    <div id="compose">
+      <form action="javascript:doSend()">
+        <textarea id="input-box" name="input" required readonly></textarea>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+body {
+  font-family: sans-serif;
+}
+
+#chat {
+  display: table;
+  position: absolute;
+  width: 340px;
+  height: 580px;
+  top: 24px;
+  left: 24px;
+  background-color: snow;
+  border: none;
+  border-radius: 8px 8px 0px 0px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12), 0 4px 4px 0 rgba(0, 0, 0, 0.24);
+}
+
+div#app-bar {
+  display: table;
+  height: 48px;
+  width: 100%;
+  background-color: gray;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.app-bar-cell {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+  padding-right: 16px;
+  padding-left: 16px;
+}
+
+#connected-led {
+  display: table-caption;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #aaaaaa;
+  margin-left: 16px;
+  box-shadow: none;
+}
+
+#connected-led.on {
+  background-color: #90ee90;
+  box-shadow: 0 0 4px 0 #90ee90;
+}
+
+button#connect-toggle-button {
+  height: 48px;
+  width: 48px;
+  vertical-align: middle;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0px;
+  color: white;
+}
+
+button#connect-toggle-button:hover {
+  opacity: .6;
+}
+
+#log {
+  display: table;
+  width: 100%
+}
+
+#log-content {
+  display: block;
+  overflow: auto;
+  max-height: 500px;
+}
+
+.log-margin {
+  display: table-cell;
+  width: 12px
+}
+
+.bubble {
+  background-color: lavender;
+  position: relative;
+  width: 70%;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  padding: 6px;
+}
+
+.bubble:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12%;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top-color: lavender;
+  border-bottom: 0;
+  border-left: 0;
+  margin-left: -4px;
+  margin-bottom: -8px;
+}
+
+.bubble.inbound {
+  background-color: PaleTurquoise;
+  margin-left: 25%;
+}
+
+.bubble.inbound:after {
+  top: 0;
+  left: 88%;
+  border: 8px solid transparent;
+  border-bottom-color: PaleTurquoise;
+  border-top: 0;
+  border-right: 0;
+  margin-top: -8px;
+}
+
+#compose {
+  display: table-row;
+  bottom: 0px;
+  width: 100%;
+  height: 36px;
+  background-color: #ffffff;
+  border-top: solid thin #DDDDDD;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.12), 0 4px 4px 0 rgba(0, 0, 0, 0.24);
+}
+
+#input-box {
+  width: 336px;
+  height: 32px;
+  margin: 8px;
+  border: none;
+  resize: vertical;
+}
