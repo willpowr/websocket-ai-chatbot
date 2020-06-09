@@ -1,7 +1,7 @@
 {
   "name": "websocket-ai-chatbot",
   "version": "1.0.0",
-  "description": "An Artificial Idiot (AI) chatbot using WebSockets",
+  "description": "An Artificial Idiocy (AI) chatbot using WebSockets",
   "main": "index.html",
   "scripts": {
     "start": "node http-server.js"
