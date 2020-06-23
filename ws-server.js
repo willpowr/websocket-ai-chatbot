@@ -8,7 +8,8 @@ function sendMessage(ws, response) {
   ws.send(response)
 }
 
-function listRegMatchGroups(matches) {
+function listRegMatchGroups(regex, matches) {
+  console.log(regex)
   matches.forEach((match, index) => console.log(`Group ${index} : ${match}`))
 }
 
@@ -56,15 +57,15 @@ function handleMessage(ws, message) {
   // .append(/..?(thank(you|s))?.*/)
   const clientWellness = trimmedMessage.match(clientWellnessRegex)
   if (clientWellness) {
-    listRegMatchGroups(clientWellness)
+    listRegMatchGroups(clientWellnessRegex, clientWellness)
     clientFeelsGood = typeof clientWellness[3] !== 'undefined' ? true : false
     response += clientFeelsGood ? `I'm glad to hear you're ${clientWellness[3]}. ` : `I'm so sorry to hear you're ${clientWellness[6]}. `
 
     // and you, and yourself, you, u, how are you
-    const andYouRegex = /(and )?(how are )?you(rself)?\??/
+    const andYouRegex = /and ((how are )?you|u)|(yourself)/i
     const andYouMatches = trimmedMessage.match(andYouRegex)
     if(andYouMatches) {
-      listRegMatchGroups(andYouMatches)
+      listRegMatchGroups(andYouRegex, andYouMatches)
       response += `\nI'm fine. Thanks for asking. `
     }
 
@@ -80,7 +81,7 @@ function handleMessage(ws, message) {
 
   const chatBotWellbeingAsked = trimmedMessage.match(askChatbotWellnessRegex)
   if (chatBotWellbeingAsked) {
-    listRegMatchGroups(chatBotWellbeingAsked)
+    listRegMatchGroups(askChatbotWellnessRegex, chatBotWellbeingAsked)
 
     response += `I'm fine, Thanks for asking. `
     iGetIt = true
