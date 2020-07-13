@@ -93,9 +93,11 @@ function onClose(evt) {
 }
 
 function onMessage(evt) {
-  if(JSON.parse(evt.data).type === 'colour'){
-    console.log(`He likes ${JSON.parse(evt.data).value}!`)
-  } else writeMessage(true, JSON.parse(evt.data).value)
+  const value = JSON.parse(evt.data).value
+  if (JSON.parse(evt.data).type === 'colour') {
+    console.log(`He likes ${value}!`)
+    document.querySelector('#input-box').style.backgroundColor = value
+  } else writeMessage(true, value)
 }
 
 function onError(evt) {
