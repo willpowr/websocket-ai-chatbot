@@ -4,8 +4,16 @@ RegExp.prototype.append = function (re) {
   return new RegExp(this.source + re.source, this.flags);
 }
 
-function sendMessage(ws, response) {
-  ws.send(response)
+function sendMessage(ws, msg) {
+  let messageObject
+  if (typeof msg === 'string'){
+    messageObject = {
+      type: 'speech',
+      value: msg
+    }
+  } else messageObject = msg 
+
+  ws.send(JSON.stringify(messageObject))
 }
 
 function listRegMatchGroups(regex, matches) {
@@ -17,7 +25,8 @@ const botQuestions = {
   NO_QUESTION: undefined,
   HOW_ARE_YOU: 'How are you today?',
   WHO_ARE_YOU: `What's your name?`,
-  WHERE_ARE_YOU: `Where do you live?`
+  WHERE_ARE_YOU: `Where do you live?`,
+  YOUR_COLOUR_PREF: 'Which colour do you like: Red; Yellow; Green; Blue; or Brown?'
 }
 
 let botQuestion = botQuestions.WHO_ARE_YOU
@@ -71,16 +80,35 @@ function handleMessage(ws, message) {
 
     iGetIt = true
     sendMessage(ws, response)
+    botQuestion = botQuestions.YOUR_COLOUR_PREF
+    sendMessage(ws, botQuestion)
+    return
+  }
+
+  if (botQuestion === botQuestions.YOUR_COLOUR_PREF){
+    if (trimmedMessage.includes('red')){
+      const colourValue = '#ff4500'
+      response = `Then here's a new red look for your speech bubbles`
+      dataMsg = {
+        type: 'colour',
+        value: colourValue
+      }
+      sendMessage(ws, dataMsg)
+    } else {
+      response = `Then I'll leave things just as they are`
+    }
+    iGetIt = true
+    sendMessage(ws, response)
     botQuestion = botQuestions.NO_QUESTION
     return
   }
 
   // client asks about bot wellbeing
   const askChatbotWellnessRegex = /((how a?re)? ((yo)?u)|(yourself))\??/i
-  console.log(askChatbotWellnessRegex)
-
   const chatBotWellbeingAsked = trimmedMessage.match(askChatbotWellnessRegex)
   if (chatBotWellbeingAsked) {
+    console.log(askChatbotWellnessRegex)
+
     listRegMatchGroups(askChatbotWellnessRegex, chatBotWellbeingAsked)
 
     response += `I'm fine, Thanks for asking. `
@@ -95,11 +123,12 @@ function handleMessage(ws, message) {
     // client asks about weather
     // client asks for the time / date
     // else
-    ws.send(`Hmmmm. I don't know, but you could try Google!`)
+
+    sendMessage(ws, `Hmmmm. I don't know, but you could try Google!`)
     return
   }
 
-  response += iGetIt ? '' : `What you just said was so enlightening. I'm learning so much about you. `
+  response = iGetIt ? '' : `What you just said was so enlightening. I'm learning so much about you. `
   sendMessage(ws, response)
 
 }
@@ -122,8 +151,10 @@ function startWsServer(wsPort) {
 
 
   wss.on('connection', (ws) => {
-    ws.send(`Hi, \n Thanks for joining me for a chat. ${botQuestion}`)
+    botQuestion = botQuestions.WHO_ARE_YOU
+    sendMessage(ws, `Hi, \n Thanks for joining me for a chat. ${botQuestion}`)
     ws.on('message', (message) => {
+      console.log(message)
       handleMessage(ws, message)
     })
   })

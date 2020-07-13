@@ -4,11 +4,14 @@
   "description": "An Artificial Idiocy (AI) chatbot using WebSockets",
   "main": "index.html",
   "scripts": {
-    "start": "node http-server.js"
+    "start": "node http-server.js",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "keywords": [],
   "license": "MIT",
   "devDependencies": {
+    "cypress": "^4.8.0",
     "ws": "^7.2.5"
   },
   "dependencies": {}

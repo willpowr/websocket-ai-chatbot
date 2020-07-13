@@ -13,7 +13,11 @@ http.createServer(function (request, response) {
     }
 
     const extname = String(path.extname(filePath)).toLowerCase();
-    const mimeTypes = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css' }
+    const mimeTypes = {
+        '.html': 'text/html',
+        '.js': 'text/javascript',
+        '.css': 'text/css'
+    }
 
     const contentType = mimeTypes[extname] || 'application/octet-stream'
 
